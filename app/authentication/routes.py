@@ -40,12 +40,13 @@ def signin():
             print(email, password)
 
             logged_user = User.query.filter(User.email == email).first()
-        if logged_user and check_password_hash(logged_user.password, password):
-            login_user(logged_user)
-            flash(f'You were successfully logged in', 'auth-success')
+            if logged_user and check_password_hash(logged_user.password, password):
+                login_user(logged_user)
+                flash(f'You were successfully logged in', 'auth-success')
+                return redirect(url_for('site.profile'))
 
-        else:
-            flash('You have failed to log in. please try again')
+            else:
+                flash('You have failed to log in. please try again')
 
     except:
         raise Exception('Invalid form data: Please check your form')
