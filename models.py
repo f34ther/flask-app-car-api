@@ -58,13 +58,16 @@ class Car(db.Model):
     model = db.Column(db.String(200))
     vin = db.Column(db.String(20))
     year = db.Column(db.String(4))
+    user_token = db.Column(db.String(150), db.ForeignKey(
+        'user.token'), nullable=True)
 
-    def __init__(self, id='', make='', model='', vin='', year=''):
+    def __init__(self, make='', model='', vin='', year='', user_token=''):
         self.id = self.set_id()
         self.make = make
         self.model = model
         self.vin = vin
         self.year = year
+        self.user_token = user_token
 
     def __repr__(self):
         return f'The following car has been added to the listings: {self.id} {self.make} {self.model} {self.year}'
@@ -78,4 +81,5 @@ class CarSchema(ma.Schema):
         fields = ['id', 'make', 'model', 'vin', 'year']
 
 
-car_schema = CarSchema
+car_schema = CarSchema()
+cars_schema = CarSchema(many=True)

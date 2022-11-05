@@ -8,7 +8,7 @@ from models import User
 
 def token_required(our_flask_function):
     @wraps(our_flask_function)
-    def decorated(*kwargs):
+    def decorated(*args, **kwargs):
         token = None
 
         if 'x-access-token' in request.headers:
@@ -26,7 +26,7 @@ def token_required(our_flask_function):
 
             if token != owner.token and secrets.compare_digest(token, owner.token):
                 return jsonify({'message': 'Token is invalid'})
-        return our_flask_function(current_user_token, *kwargs)
+        return our_flask_function(current_user_token, *args, **kwargs)
     return decorated
 
 
