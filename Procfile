@@ -1,1 +1,1 @@
-web: gunicorn "Car_API:app"
+web: gunicorn "app:app"
