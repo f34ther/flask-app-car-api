@@ -39,13 +39,16 @@ def get_car(current_user_token):
     return jsonify(response)
 
 
-@api.route('/cars/id', methods=['GET'])
+@api.route('/cars/<id>', methods=['GET'])
 @token_required
 def get_single_car(current_user_token, id):
-    car = Car.query.get(id)
-    response = car_schema.dump(car)
-    return jsonify(response)
-
+    a_user = current_user_token.token
+    if a_user == current_user_token:
+        car = Car.query.get(id)
+        response = car_schema.dump(car)
+        return jsonify(response)
+     else:
+        return jsonify({"message": "Valid Token Required"}),401
 # set FLASK_DEBUG = 1 to turn on debug, set FLASK_DEBUG = 0 to turnoff debug
 
 
