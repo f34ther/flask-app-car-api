@@ -30,9 +30,7 @@
                     <li class="nav-item">
                         <a href="{{url_for('auth.logout')}}" class="nav-link">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{url_for(api.getdata) }}" class="nav-link">View Inventory</a>
-                    </li>
+
                     {% else %}
                     <li class="nav-item">
                         <a href="{{url_for('auth.signin')}}" class="nav-link">Sign In</a>
